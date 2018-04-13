@@ -58,12 +58,13 @@ words = [
 def rotation_point(words):
     '''takes in a list of words and finds the index of the rotation point'''
 
+    # loop through the list of words
     for i, word in enumerate(words):
+        # if the index is not the last index in the list
         if i != len(words) - 1:
-            if word[0] > words[i+1][0]:
+            # if the word comes before the next word in the list we
+            # found the rotation point
+            if word > words[i+1]:
                 return words[i+1], "is the rotation point"
 
 print rotation_point(words)
-
-
-
