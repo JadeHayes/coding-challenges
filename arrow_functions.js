@@ -71,3 +71,6 @@ bst.push(2);
 bst.push(4);
 bst.push(1);
 bst.push(5);
+
+
+// Push entire Node instead of just pushing value function call as the argument to push
