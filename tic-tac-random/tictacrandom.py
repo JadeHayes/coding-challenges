@@ -16,28 +16,27 @@ def tic_tac_random():
     board = setup_board()
     current_player = 'X'
     winner = None
-    full = False
 
     while not winner and not is_board_full(board):
-        print
         print_board(board)
-        print
         if current_player == 'X':
-            move = raw_input("Enter move (1-9)> ")
+            selection = input("\nEnter move (1-9)> ")
+            move = validate_move(selection, board)
+
             position = int(move)
             make_move(board, position, 'X')
             current_player = 'O'
         else:
             position = make_random_move(board, 'O')
-            print "O played in position %s" % position
+            print("O played in position %s" % position)
             current_player = 'X'
 
         winner = find_winner(board)
 
     if winner:
-        print "Congratulations to " + winner
+        print("Congratulations to " + winner)
     else:
-        print "How boring, a tie"
+        print("How boring, a tie")
 
 
 def setup_board():
@@ -53,7 +52,7 @@ def setup_board():
     [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
     """
 
-    return [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
+    return [['.', '.', '.'],['.', '.', '.'],['.', '.', '.']]
 
 
 def is_board_full(board):
@@ -73,6 +72,18 @@ def is_board_full(board):
         if "." in row:
             return False
     return True
+    
+def validate_move(move, board):
+    # is it 1-9?
+    # is the spot taken?
+    # while not move.isdigit() or 1 <= int(move) <= 9:
+    #     return input("Try again, numbers only \nEnter move (1-9)> ")
+    # cp_board = [b[:] for b in board]
+    # flattened_board = [cell for row in cp_board for cell in row ]
+    # while not flattened_board[int(move)+1] == ".":
+    #     available = [i for cell, i in flattened_board if cell is "."]
+    #     return input("Spots taken, try again\nAvailable spots: {available}")
+    return move
 
 
 def make_random_move(board, player):
@@ -80,7 +91,7 @@ def make_random_move(board, player):
 
     player = 'X' or 'O', depending on who should move.
 
-    This should change the board in-place. It should return the
+    This will change the board in-place. It should return the
     position (1-9) it played into.
 
     You don't need to do this randomly -- it can simply use the first empty
@@ -149,8 +160,8 @@ def print_board(board):
 
     for row in board:
         for cell in row:
-            print cell,
-        print
+            print(cell + " ", end="")
+        print()
 
 
 def make_move(board, position, player):
@@ -188,7 +199,7 @@ if __name__ == "__main__":
         import doctest
 
         if doctest.testmod().failed == 0:
-            print "\n*** ALL TESTS PASS. FANTASTIC WORK!\n"
+            print("\n*** ALL TESTS PASS. FANTASTIC WORK!\n")
     else:
         tic_tac_random()
 
