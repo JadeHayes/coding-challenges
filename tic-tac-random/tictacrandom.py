@@ -74,16 +74,18 @@ def is_board_full(board):
     return True
     
 def validate_move(move, board):
-    # is it 1-9?
-    # is the spot taken?
-    # while not move.isdigit() or 1 <= int(move) <= 9:
-    #     return input("Try again, numbers only \nEnter move (1-9)> ")
-    # cp_board = [b[:] for b in board]
-    # flattened_board = [cell for row in cp_board for cell in row ]
-    # while not flattened_board[int(move)+1] == ".":
-    #     available = [i for cell, i in flattened_board if cell is "."]
-    #     return input("Spots taken, try again\nAvailable spots: {available}")
-    return move
+    while True:
+        if not move.isdigit() or not (1 <= int(move) <= 9):
+            move = input("Invalid input. Enter a number between 1 and 9: ")
+            continue
+
+        position = int(move)
+        row, col = divmod(position - 1, 3)
+        if board[row][col] != '.':
+            move = input("Spot is taken. Try again (1-9): ")
+            continue
+
+        return move
 
 
 def make_random_move(board, player):
@@ -104,10 +106,6 @@ def make_random_move(board, player):
     >>> board
     [['X', 'O', 'X'], ['X', 'X', 'O'], ['O', 'O', 'X']]
     """
-
-    # change the board in place
-    # loop over the board
-    # find the first "." and change it to player ("O")
     for ri, row in enumerate(board):
         for i, cell in enumerate(row):
             if cell == ".":
